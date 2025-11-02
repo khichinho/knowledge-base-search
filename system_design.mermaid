@@ -1,0 +1,44 @@
+flowchart TB
+    Client["Client Layer<br/>Swagger UI / cURL / Browser"]
+    
+    API["FastAPI Gateway<br/>Port 8000<br/><br/>• POST /documents/upload<br/>• GET /documents<br/>• POST /search<br/>• POST /qa<br/>• POST /completeness"]
+    
+    DocProc["Document Processor<br/><br/>Extract text<br/>PDF/DOCX/TXT<br/>Chunk: 500/50"]
+    
+    VectorStore["Vector Store<br/><br/>Generate embeddings<br/>384-dimensional<br/>Semantic search"]
+    
+    LLM["LLM Service<br/><br/>RAG implementation<br/>Q&A generation<br/>Completeness check"]
+    
+    SentenceTrans["Sentence-Transformers<br/>all-MiniLM-L6-v2"]
+    
+    ChromaDB["ChromaDB<br/><br/>Vector storage<br/>HNSW indexing<br/>Metadata"]
+    
+    FileSystem["File System<br/><br/>Raw documents<br/>uploads/"]
+    
+    OpenAI["OpenAI API<br/><br/>GPT-3.5-turbo"]
+    
+    Client -->|HTTP REST| API
+    API --> DocProc
+    API --> VectorStore
+    API --> LLM
+    
+    DocProc -->|Save raw files| FileSystem
+    DocProc -->|Send chunks| VectorStore
+    
+    VectorStore -->|Generate embeddings| SentenceTrans
+    VectorStore -->|Store/Query| ChromaDB
+    SentenceTrans -.->|384-dim vectors| ChromaDB
+    
+    LLM -->|API calls| OpenAI
+    LLM -.->|Retrieve context| VectorStore
+    
+    style Client fill:#b2f2bb
+    style API fill:#a5d8ff
+    style DocProc fill:#ffd43b
+    style VectorStore fill:#ffd43b
+    style LLM fill:#ffd43b
+    style ChromaDB fill:#ff8787
+    style FileSystem fill:#ff8787
+    style OpenAI fill:#da77f2
+    style SentenceTrans fill:#fff4e6
+
