@@ -43,8 +43,6 @@ def check_imports():
 
 def check_env():
     """Check if .env file exists and has required variables."""
-    
-    import os
     from pathlib import Path
 
     print("\n🔍 Checking environment configuration...\n")
@@ -106,7 +104,7 @@ def test_sentence_transformer():
         test_text = "This is a test sentence."
         embedding = model.encode(test_text)
 
-        print(f"✓ Model loaded successfully")
+        print("✓ Model loaded successfully")
         print(f"✓ Embedding dimension: {len(embedding)}")
         print("\n✅ Embedding model working!")
         return True

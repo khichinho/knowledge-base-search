@@ -1,14 +1,8 @@
-import time
 from typing import Any, Dict, List, Tuple
 
 import tiktoken
-from openai import OpenAI, RateLimitError, APIError
-from tenacity import (
-    retry,
-    retry_if_exception_type,
-    stop_after_attempt,
-    wait_exponential,
-)
+from openai import APIError, OpenAI, RateLimitError
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 
 class LLMService:

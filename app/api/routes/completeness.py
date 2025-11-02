@@ -42,7 +42,10 @@ async def check_completeness(
 
         # Extract supporting documents
         supporting_docs = list(
-            set(result["metadata"].get("filename", "unknown") for result in context_results)
+            set(
+                result["metadata"].get("filename", "unknown")
+                for result in context_results
+            )
         )
 
         return CompletenessResult(
@@ -60,12 +63,14 @@ async def check_completeness(
         # Check for OpenAI API errors
         if "RateLimitError" in error_msg or "rate_limit" in error_msg.lower():
             detail = (
-                "OpenAI API rate limit exceeded. Please wait a moment and try again, "
+                "OpenAI API rate limit exceeded.\n"
+                "Please wait a moment and try again,\n"
                 "or check your rate limits at https://platform.openai.com/account/rate-limits"
             )
         elif "quota" in error_msg.lower() or "billing" in error_msg.lower():
             detail = (
-                "OpenAI API quota exceeded. Please set up billing or increase your "
+                "OpenAI API quota exceeded.\n"
+                "Please set up billing or increase your\n"
                 "spending limit at https://platform.openai.com/account/billing"
             )
         else:
