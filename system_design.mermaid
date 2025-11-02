@@ -3,9 +3,9 @@ flowchart TB
     
     API["FastAPI Gateway<br/>Port 8000<br/><br/>• POST /documents/upload<br/>• GET /documents<br/>• POST /search<br/>• POST /qa<br/>• POST /completeness"]
     
-    DocProc["Document Processor<br/><br/>Extract text<br/>PDF/DOCX/TXT<br/>Chunk: 500/50"]
+    DocProc["Document Processor<br/><br/>Extract text<br/>PDF/DOCX/TXT<br/>"]
     
-    VectorStore["Vector Store<br/><br/>Generate embeddings<br/>384-dimensional<br/>Semantic search"]
+    VectorStore["Vector Store<br/><br/>Generate embeddings<br/>Semantic search"]
     
     LLM["LLM Service<br/><br/>RAG implementation<br/>Q&A generation<br/>Completeness check"]
     
